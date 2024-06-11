@@ -1,0 +1,15 @@
+ public string GetPhoto
+ {
+     get
+     {
+         return $@"{Directory.GetCurrentDirectory()}\CurrencyPhotos\{CurrencyPhoto}";
+     }
+ }
+
+ public string GetPhoto
+ {
+     get
+     {
+         return $@"{Directory.GetCurrentDirectory()}\CountryPhotos\{PhotoCountry}";
+     }
+ }

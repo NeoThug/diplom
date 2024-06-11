@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище CryptoWalletModel1" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID_Country" />
+          </Key>
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Country" Type="int" Nullable="false" />
+          <Property Name="PhotoCountry" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID_Currency" />
+          </Key>
+          <Property Name="PriceInRub" Type="int" Nullable="false" />
+          <Property Name="Currency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Currency" Type="int" Nullable="false" />
+          <Property Name="CurrencyPhoto" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="ID_Sex" />
+          </Key>
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_Sex" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="NickName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ID_Sex" Type="int" Nullable="false" />
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="ID_Role" Type="int" Nullable="false" />
+          <Property Name="ID_Country" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wallet">
+          <Key>
+            <PropertyRef Name="ID_Wallet" />
+          </Key>
+          <Property Name="ID_Wallet" Type="int" Nullable="false" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+          <Property Name="ID_Currency" Type="int" Nullable="false" />
+          <Property Name="ID_User" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_User_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID_Country" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="ID_Sex" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wallet_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID_Currency" />
+            </Principal>
+            <Dependent Role="Wallet">
+              <PropertyRef Name="ID_Currency" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wallet_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Wallet">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CryptoWalletModel1Container">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Currency" EntityType="Self.Currency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wallet" EntityType="Self.Wallet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Sex" Association="Self.FK_User_Sex">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wallet_Currency" Association="Self.FK_Wallet_Currency">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Wallet" EntitySet="Wallet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wallet_User" Association="Self.FK_Wallet_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Wallet" EntitySet="Wallet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CryptoWalletModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="ID_Country" />
+          </Key>
+          <Property Name="Country1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Country" Type="Int32" Nullable="false" />
+          <Property Name="PhotoCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Country" FromRole="Country" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Currency">
+          <Key>
+            <PropertyRef Name="ID_Currency" />
+          </Key>
+          <Property Name="PriceInRub" Type="Int32" Nullable="false" />
+          <Property Name="Currency1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Currency" Type="Int32" Nullable="false" />
+          <Property Name="CurrencyPhoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Wallets" Relationship="Self.FK_Wallet_Currency" FromRole="Currency" ToRole="Wallet" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID_Role" />
+          </Key>
+          <Property Name="Role1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="ID_Sex" />
+          </Key>
+          <Property Name="Sex1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Sex" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Sex" FromRole="Sex" ToRole="User" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="NickName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_Sex" Type="Int32" Nullable="false" />
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="ID_Role" Type="Int32" Nullable="false" />
+          <Property Name="ID_Country" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_User_Country" FromRole="User" ToRole="Country" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Sex" Relationship="Self.FK_User_Sex" FromRole="User" ToRole="Sex" />
+          <NavigationProperty Name="Wallets" Relationship="Self.FK_Wallet_User" FromRole="User" ToRole="Wallet" />
+        </EntityType>
+        <EntityType Name="Wallet">
+          <Key>
+            <PropertyRef Name="ID_Wallet" />
+          </Key>
+          <Property Name="ID_Wallet" Type="Int32" Nullable="false" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <Property Name="ID_Currency" Type="Int32" Nullable="false" />
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Currency" Relationship="Self.FK_Wallet_Currency" FromRole="Wallet" ToRole="Currency" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Wallet_User" FromRole="Wallet" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="ID_Country" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Country" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wallet_Currency">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="ID_Currency" />
+            </Principal>
+            <Dependent Role="Wallet">
+              <PropertyRef Name="ID_Currency" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID_Role" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="ID_Sex" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ID_Sex" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wallet_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Wallet" Type="Self.Wallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Wallet">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CryptoWalletEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="Currencies" EntityType="Self.Currency" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Sexes" EntityType="Self.Sex" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Wallets" EntityType="Self.Wallet" />
+          <AssociationSet Name="FK_User_Country" Association="Self.FK_User_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wallet_Currency" Association="Self.FK_Wallet_Currency">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Wallet" EntitySet="Wallets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Sex" Association="Self.FK_User_Sex">
+            <End Role="Sex" EntitySet="Sexes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wallet_User" Association="Self.FK_Wallet_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Wallet" EntitySet="Wallets" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CryptoWalletModel1Container" CdmEntityContainer="CryptoWalletEntities1">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="Country1" ColumnName="Country" />
+                <ScalarProperty Name="ID_Country" ColumnName="ID_Country" />
+                <ScalarProperty Name="PhotoCountry" ColumnName="PhotoCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Currencies">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.Currency">
+              <MappingFragment StoreEntitySet="Currency">
+                <ScalarProperty Name="PriceInRub" ColumnName="PriceInRub" />
+                <ScalarProperty Name="Currency1" ColumnName="Currency" />
+                <ScalarProperty Name="ID_Currency" ColumnName="ID_Currency" />
+                <ScalarProperty Name="CurrencyPhoto" ColumnName="CurrencyPhoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexes">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="Sex1" ColumnName="Sex" />
+                <ScalarProperty Name="ID_Sex" ColumnName="ID_Sex" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="NickName" ColumnName="NickName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID_Sex" ColumnName="ID_Sex" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+                <ScalarProperty Name="ID_Country" ColumnName="ID_Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wallets">
+            <EntityTypeMapping TypeName="CryptoWalletModel1.Wallet">
+              <MappingFragment StoreEntitySet="Wallet">
+                <ScalarProperty Name="ID_Wallet" ColumnName="ID_Wallet" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="ID_Currency" ColumnName="ID_Currency" />
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

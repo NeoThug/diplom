@@ -1,0 +1,20 @@
+﻿WalletApp
+
+
+winexe
+C#
+.cs
+C:\Users\dripper\Desktop\Дипломная работа на тему BlockChainApp\CryptoApp\WalletApp\obj\Debug\
+WalletApp
+none
+false
+DEBUG;TRACE
+C:\Users\dripper\Desktop\Дипломная работа на тему BlockChainApp\CryptoApp\WalletApp\App.xaml
+13-327314869
+2-1223955081
+27-1137192892
+181907835647
+Pages\AddEditPage.xaml;Pages\BalancePage.xaml;Pages\CourseCurrencyPage.xaml;Pages\LoginPage.xaml;Pages\MainPage.xaml;Pages\MainPageClient.xaml;Pages\SignUpPage.xaml;Pages\UserClientPage.xaml;Pages\UserPage.xaml;Pages\WalletPage.xaml;Windows\AdminWindow.xaml;Windows\LoginWindow.xaml;Windows\MainWindow.xaml;
+
+False
+
